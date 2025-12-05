@@ -8,7 +8,7 @@ def parse_args():
     parser = argparse.ArgumentParser(
                     prog='CCWC',
                     description='Count word')
-    parser.add_argument("file")
+    parser.add_argument('file',nargs='?',default=None)
     parser.add_argument("-c", "--count", action="store_true")
     parser.add_argument("-w", "--word", action="store_true")
     parser.add_argument("-l", "--line", action="store_true")
