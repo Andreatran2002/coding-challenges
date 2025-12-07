@@ -20,37 +20,31 @@ def test_huffman_tree():
     # This Huffman tree is constructed to match the structure and weights from the image.
     expected_tree = WeightHuffmanNode(
         weight=306,
-        left=LeafHuffmanNode(letter="e", weight=120, prefix=0),
+        left=LeafHuffmanNode(letter="e", weight=120),
         right=WeightHuffmanNode(
             weight=186,
             left=WeightHuffmanNode(
                 weight=79,
-                left=LeafHuffmanNode(letter="u", weight=37, prefix=0),
-                right=LeafHuffmanNode(letter="d", weight=42, prefix=1),
-                prefix=0
+                left=LeafHuffmanNode(letter="u", weight=37),
+                right=LeafHuffmanNode(letter="d", weight=42),
             ),
             right=WeightHuffmanNode(
                 weight=107,
-                left=LeafHuffmanNode(letter="l", weight=42, prefix=0),
+                left=LeafHuffmanNode(letter="l", weight=42),
                 right=WeightHuffmanNode(
                     weight=65,
-                    left=LeafHuffmanNode(letter="c", weight=32, prefix=0),
+                    left=LeafHuffmanNode(letter="c", weight=32),
                     right=WeightHuffmanNode(
                         weight=33,
                         left=WeightHuffmanNode(
                             weight=9,
-                            left=LeafHuffmanNode(letter="z", weight=2, prefix=0),
-                            right=LeafHuffmanNode(letter="k", weight=7, prefix=1),
-                            prefix=0
+                            left=LeafHuffmanNode(letter="z", weight=2),
+                            right=LeafHuffmanNode(letter="k", weight=7),
                         ),
-                        right=LeafHuffmanNode(letter="m", weight=24, prefix=1),
-                        prefix=1
+                        right=LeafHuffmanNode(letter="m", weight=24),
                     ),
-                    prefix=1
                 ),
-                prefix=1
             ),
-            prefix=1
         ),
     )
 

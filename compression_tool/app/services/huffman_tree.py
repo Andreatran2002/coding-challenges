@@ -18,11 +18,9 @@ class HuffmanNodeGenerator:
         return self._build_tree(node_list)
     
     def _build_tree(self, node_list: List[HuffmanNode]) -> HuffmanNode:
-        node = None
         while len(node_list) > 1:
             left = node_list.pop()
             right = node_list.pop()
-            right.prefix = 1
             node = WeightHuffmanNode(left=left,right=right,weight=left.weight+right.weight)
             node_list.append(node)
             node_list = sorted(node_list, key=lambda f: f.weight, reverse=True)

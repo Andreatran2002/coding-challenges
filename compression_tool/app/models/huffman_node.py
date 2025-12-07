@@ -8,26 +8,25 @@ class HuffmanNode:
     weight: int
     left: Optional["HuffmanNode"] = None
     right: Optional["HuffmanNode"] = None
-    prefix: int = 0
-    def __rep__(self) -> str:
-        return f"node({self.letter},{self.weight})"
+    def __repr__(self) -> str:
+        return f"node(weight={self.weight})"
     def __str__(self) -> str:
-        return f"node({self.letter},{self.weight})"
+        return f"node(weight={self.weight})"
 
 
 @dataclass
 class LeafHuffmanNode(HuffmanNode):
     letter: str = ""
     is_leaf: bool = True
-    def __rep__(self) -> str:
-        return f"node({self.letter},{self.weight})"
+    def __repr__(self) -> str:
+        return f"node(letter={self.letter},weight={self.weight})"
     def __str__(self) -> str:
-        return f"node({self.letter},{self.weight})"
+        return f"node(letter={self.letter},weight={self.weight})"
 
 @dataclass
 class WeightHuffmanNode(HuffmanNode):
     is_leaf: bool = False
-    def __rep__(self) -> str:
-        return f"node({self.weight})"
+    def __repr__(self) -> str:
+        return f"node(weight={self.weight})"
     def __str__(self) -> str:
-        return f"node({self.weight})"
+        return f"node(weight={self.weight})"
