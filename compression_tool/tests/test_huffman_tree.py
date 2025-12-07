@@ -15,8 +15,9 @@ def test_huffman_tree():
         weight=33,
         left=WeightHuffmanNode(
             weight=9,
-            left=LeafHuffmanNode(letter="z", weight=2),
-            right=LeafHuffmanNode(letter="k", weight=7),
+            left=LeafHuffmanNode(letter="z", weight=2, prefix=0),
+            right=LeafHuffmanNode(letter="k", weight=7, prefix=1),
+            prefix=0
         ),
-        right=LeafHuffmanNode(letter="m", weight=24),
+        right=LeafHuffmanNode(letter="m", weight=24, prefix=1),
     )

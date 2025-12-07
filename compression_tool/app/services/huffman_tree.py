@@ -20,7 +20,7 @@ class HuffmanNodeGenerator:
             letter=list_letters[0].letter, weight=list_letters[0].value
         )
         root_right_node = LeafHuffmanNode(
-            letter=list_letters[1].letter, weight=list_letters[1].value
+            letter=list_letters[1].letter, weight=list_letters[1].value, prefix=1
         )
         root_node = WeightHuffmanNode(
             left=root_left_node,
@@ -34,6 +34,7 @@ class HuffmanNodeGenerator:
             right_node = LeafHuffmanNode(
                 letter=list_letters[position].letter,
                 weight=list_letters[position].value,
+                prefix=1
             )
             root_node = WeightHuffmanNode(
                 left=root_node,

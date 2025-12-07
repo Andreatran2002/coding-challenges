@@ -8,6 +8,7 @@ class HuffmanNode:
     weight: int
     left: Optional["HuffmanNode"] = None
     right: Optional["HuffmanNode"] = None
+    prefix: int = 0
 
 @dataclass
 class LeafHuffmanNode(HuffmanNode):
