@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import logging
 from typing import Dict, List
 
 from app.models.huffman_node import HuffmanNode, LeafHuffmanNode, WeightHuffmanNode
@@ -6,41 +7,23 @@ from app.models.letter_frequency import LetterFrequency
 
 
 class HuffmanNodeGenerator:
-    def generate(table: Dict[str, int]) -> HuffmanNode:
+    def generate(self, table: Dict[str, int]) -> HuffmanNode:
         list_letters = [
             LetterFrequency(letter=key, value=value) for key, value in table.items()
         ]
-        list_letters = sorted(list_letters, key=lambda f: f.value)
-        if len(list_letters) < 2:
-            return LeafHuffmanNode(
-                letter=list_letters[0].letter, weight=list_letters[0].value
-            )
+        list_letters = sorted(list_letters, key=lambda f: f.value, reverse=True)
+        
+        node_list = [LeafHuffmanNode(letter=letter.letter, weight=letter.value) for letter in list_letters]
 
-        root_left_node = LeafHuffmanNode(
-            letter=list_letters[0].letter, weight=list_letters[0].value
-        )
-        root_right_node = LeafHuffmanNode(
-            letter=list_letters[1].letter, weight=list_letters[1].value, prefix=1
-        )
-        root_node = WeightHuffmanNode(
-            left=root_left_node,
-            right=root_right_node,
-            weight=root_left_node.weight + root_right_node.weight,
-        )
-
-        position = 2
-
-        while position < len(list_letters):
-            right_node = LeafHuffmanNode(
-                letter=list_letters[position].letter,
-                weight=list_letters[position].value,
-                prefix=1
-            )
-            root_node = WeightHuffmanNode(
-                left=root_node,
-                right=right_node,
-                weight=root_node.weight + right_node.weight,
-            )
-            position += 1
-
-        return root_node
+        return self._build_tree(node_list)
+    
+    def _build_tree(self, node_list: List[HuffmanNode]) -> HuffmanNode:
+        node = None
+        while len(node_list) > 1:
+            left = node_list.pop()
+            right = node_list.pop()
+            right.prefix = 1
+            node = WeightHuffmanNode(left=left,right=right,weight=left.weight+right.weight)
+            node_list.append(node)
+            node_list = sorted(node_list, key=lambda f: f.weight, reverse=True)
+        return node
