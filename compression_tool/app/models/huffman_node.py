@@ -16,7 +16,7 @@ class HuffmanNode:
 
 @dataclass
 class LeafHuffmanNode(HuffmanNode):
-    letter: str = ""
+    letter: bytes = b""
     is_leaf: bool = True
     def __repr__(self) -> str:
         return f"node(letter={self.letter},weight={self.weight})"

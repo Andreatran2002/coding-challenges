@@ -1,24 +1,21 @@
 import logging
-from app.services.huffman_tree import HuffmanNodeGenerator
+from bitstring import BitStream, Bits
+from app.controllers.compressor import Compressor
 from app.models.huffman_node import LeafHuffmanNode, WeightHuffmanNode
+from app.services.huffman_tree import HuffmanNodeGenerator
 
+logging.basicConfig(level=logging.INFO)
 
-def test_huffman_tree():
-    dicts = {
-        b'z': 2,
-        b'k': 7,
-        b'm': 24,
-        b'c': 32,
-        b'l': 42,
-        b'd': 42,
-        b'u': 37,
-        b'e': 120,
-    }
-    generator = HuffmanNodeGenerator()
-    tree = generator.gen_node(dicts)
+def test_gen_header():
+    compressor = Compressor()
+    table_info = {b'a': 2, b'b': 3, b'c': 4}
+    file_name = "test_file.txt"
+    result = compressor._get_header_data(table_info, file_name)
+    expect_header = Bits(f"vct@@{file_name}///b'a'=2,b'b'=3,b'c'=4@@vct".encode("utf-8"))
+    assert result.bytes == expect_header.bytes
 
-    # This Huffman tree is constructed to match the structure and weights from the image.
-    expected_tree = WeightHuffmanNode(
+def test_gen_prefix_table():
+    tree = WeightHuffmanNode(
         weight=306,
         left=LeafHuffmanNode(letter=b'e', weight=120),
         right=WeightHuffmanNode(
@@ -47,8 +44,7 @@ def test_huffman_tree():
             ),
         ),
     )
-
-    # The tree construction is based on left-first, then right, and matches the diagram.
-    # Depending on the actual implementation, some prefix or node ordering differences may exist.
-    assert tree == expected_tree
-    # Optionally, you might want to recurse through the nodes and compare each for full equality instead of just root weight.
+    generator = HuffmanNodeGenerator()
+    result = generator.gen_prefix_table(tree)
+    expect_prefix_table = {b'e': "0", b'u': "100", b'd': "101", b'l': "110", b'c': "1110", b'z': "111100", b'k': "111101", b'm': "11111"}
+    assert result == expect_prefix_table

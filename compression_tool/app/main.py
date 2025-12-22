@@ -2,6 +2,7 @@
 import argparse
 import re
 import sys
+import asyncio
 
 from app.controllers.compressor import Compressor
 
@@ -16,7 +17,7 @@ def parse_args():
 def main():
     args = parse_args()
     compressor = Compressor()
-    compressor.process(args.file)
+    asyncio.run(compressor.encode(args.file))
 
 if __name__ == "__main__":
     main()
